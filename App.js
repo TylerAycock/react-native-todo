@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
 import AddTodo from './components/AddTodo';
+import Sandbox from './components/Sandbox';
 
 export default function App() {
 
@@ -28,13 +29,10 @@ export default function App() {
         { text: 'Understood', onPress: () => console.log('alert closed') }
       ])
     }
-
-
   }
 
-
   return (
-
+    // <Sandbox />
     <TouchableWithoutFeedback onPress={() => {
       Keyboard.dismiss()
       console.log('dismissed keyboard')
@@ -60,17 +58,24 @@ export default function App() {
       </View>
     </TouchableWithoutFeedback>
   );
+
 }
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     flex: 1,
     backgroundColor: '#fff',
   },
   content: {
     padding: 40,
+    flex: 1,
+    backgroundColor: 'pink'
   },
   list: {
-    marginTop: 20
+    // display: 'flex',
+    // flex: 1,
+    marginTop: 20,
+    backgroundColor: 'yellow',
   }
 });
