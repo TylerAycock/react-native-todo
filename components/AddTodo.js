@@ -6,7 +6,7 @@ export default Addtodo = ({ submitHandler }) => {
     const [text, setText] = useState(" ")
 
     const changeHandler = (val) => {
-        console.log(val)
+        // console.log(val)
         setText(val)
     }
     return (

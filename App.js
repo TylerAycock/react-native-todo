@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useState } from 'react';
 import Header from './components/Header';
 import TodoItem from './components/TodoItem';
@@ -21,31 +21,44 @@ export default function App() {
   }
 
   submitHandler = (text) => {
-    console.log(text)
-    setTodos(prevTodos => [...prevTodos, { text: text, id: Math.random().toString }])
+    if (text.length > 3) {
+      setTodos(prevTodos => [...prevTodos, { text: text, id: Math.random().toString() }])
+    } else {
+      Alert.alert('OOPS!', 'todos must be over 3 chars long', [
+        { text: 'Understood', onPress: () => console.log('alert closed') }
+      ])
+    }
+
+
   }
 
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <View style={styles.content} >
-        <AddTodo
-          submitHandler={submitHandler}
-        />
-        <View>
-          <View style={styles.list} >
-            <FlatList
-              keyExtractor={item => item.id}
-              data={todos}
-              renderItem={({ item }) => {
-                return <TodoItem item={item} pressHandler={pressHandler} />
-              }}
-            />
+
+    <TouchableWithoutFeedback onPress={() => {
+      Keyboard.dismiss()
+      console.log('dismissed keyboard')
+    }} >
+      <View style={styles.container}>
+        <Header />
+        <View style={styles.content} >
+          <AddTodo
+            submitHandler={submitHandler}
+          />
+          <View>
+            <View style={styles.list} >
+              <FlatList
+                keyExtractor={item => item.id}
+                data={todos}
+                renderItem={({ item }) => {
+                  return <TodoItem item={item} pressHandler={pressHandler} />
+                }}
+              />
+            </View>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
